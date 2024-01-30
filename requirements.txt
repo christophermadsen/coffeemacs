@@ -1,0 +1,9 @@
+setuptools
+black
+black-macchiato
+isort
+jupyter
+flake8
+ipykernel
+virtualenvwrapper
+virtualenvwrapper-win
