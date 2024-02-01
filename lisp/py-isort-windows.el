@@ -175,7 +175,7 @@
 ;; END GENERATED -------------------
 
 
-(provide 'py-isort)
+(provide 'py-isort-windows)
 
 
 ;;; py-isort.el ends here
