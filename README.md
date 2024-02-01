@@ -1,13 +1,3 @@
----
-title: Coffeemacs README
-author: Christopher Buch Madsen
-date: December 7, 2023
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
----
-
 # Coffeemacs - A loosely maintained Emacs data science config for Windows.
 I worked at a company where the entire data science team used an Emacs
 configuration on Unix based systems. The config was maintained mainly by a few
@@ -16,8 +6,33 @@ config working on Windows machines. Why? You may ask. Well, simply because if I
 am gaming or browsing on my Windows PC at home, I don't want to switch systems
 if I want to write down a note in org-roam or write some quick code.
 
+<div style="text-align:center"><img src="coffee-isometric-dashboard.png"/></div>
+
 ## Make it work
-### Python Packages required to run coffeemacs (tested with Python 3.12).
+### Add a HOME to the windows system environment variables
+THe files in the `coffeemacs` repository should be added to your .emacs.d
+directory. The .emacs.d directory is by default located where you install
+emacs, but if we add a HOME variable to the Windows system environment
+variables, then emacs will read the .emacs.d at that path. This is a lot more
+handy and simulates a little bit how Linux paths work. Other practical things
+to include at this destination could be your `.gitconfig` or `.ssh/`.
+
+1. Open the Windows Start menu and search for 'Edit the system environment
+   variable', a window should pop open when you click the correct result.
+2. Click the `Environment Variables...` button in this new window. A new window
+   should pop open again.
+3. In this 2nd new window, under "System variables" (bottom part) click the
+   `New` button.
+4. Use the variable name `HOME` and set the variable value to whereever you
+   want. I recommend using the `C:/Users/Name-of-your-user` path.
+   
+You will see that Windows recognises the `~/` path as your newly set `HOME`
+system environment variable.
+
+### Install Python (3.11 and 3.12 have been tested and works)
+Make sure to add python to PATH when prompted during installation.
+
+### Python Packages required to run coffeemacs.
 (You'll also find these in a requirements.txt to install with `pip -r`)
 ```
 setuptools
@@ -35,20 +50,6 @@ virtualenvwrapper-win
 For the flycheck package to work you may need to go to "Manage App Execution
 Aliases" in Windows and turn off "App Installer python.exe" and "App installer
 python3.exe"
-
-### Running a Shell
-Running a terminal/shell in Emacs on Windows is really, really awkward. There
-are too many small (sometimes big) things that are broken and there aren't
-fixes for all of it. For most use cases this is fine, but doing more advanced
-stuff may result in errors. So it's honestly recommended to just use a terminal
-of your choice next to Emacs. However, this config comes with a working
-powershell, which of course can be used by calling `M-x powershell`.
-
-Using ssh to interact with git may result in an error asking for a ssh_askpass,
-this can be fixed by adding an environmental variable, in Windows, called
-`SSH_ASKPASS` and setting it to where git-askpass.exe is installed (this comes
-with the Windows installation of git), mine was at `C:\Program
-Files\Git\mingw64\bin`
 
 ### Markdown (and other files to convert from/to)
 Org-mode is amazing, but alternatives are sometimes used for specific purposes,
@@ -203,7 +204,21 @@ def format_lines(lines: List[str], black_args=None) -> List[str]:
 (I've added a file in lisp/black-macchiato.py that includes this, but it would
 be best to not have a separate package from the one on pypi)
 
-### Running update on annoying Windows things
+### Running a Shell
+Running a terminal/shell in Emacs on Windows is really, really awkward. There
+are too many small (sometimes big) things that are broken and there aren't
+fixes for all of it. For most use cases this is fine, but doing more advanced
+stuff may result in errors. So it's honestly recommended to just use a terminal
+of your choice next to Emacs. However, this config comes with a working
+powershell, which of course can be used by calling `M-x powershell`.
+
+Using ssh to interact with git may result in an error asking for a ssh_askpass,
+this can be fixed by adding an environmental variable, in Windows, called
+`SSH_ASKPASS` and setting it to where git-askpass.exe is installed (this comes
+with the Windows installation of git), mine was at `C:\Program
+Files\Git\mingw64\bin`
+
+## Running update on annoying Windows things
 1. Within Emacs (emacs-lisp) you may not be able to do certain function/program
    calls if it requires a windows path that includes a space, a common one is
    the `/Program Files/` directory.
