@@ -119,8 +119,8 @@
   (package-install 'hydra))
 
 ;; py-isort
-(unless (package-installed-p 'py-isort)
-  (package-install 'py-isort))
+;; (unless (package-installed-p 'py-isort)
+;;   (package-install 'py-isort))
 
 ;; org-superstar
 (unless (package-installed-p 'org-superstar)
