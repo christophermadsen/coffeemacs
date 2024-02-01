@@ -6,9 +6,9 @@ config working on Windows machines. Why? You may ask. Well, simply because if I
 am gaming or browsing on my Windows PC at home, I don't want to switch systems
 if I want to write down a note in org-roam or write some quick code.
 
-<center>
+<p align="center">
     <img src="coffee-isometric-dashboard.png">
-</center>
+</p>
 
 ## Make it work
 ### Add a HOME to the windows system environment variables
