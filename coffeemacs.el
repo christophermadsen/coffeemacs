@@ -453,7 +453,7 @@
 ;;   (elpy-enable))
 
 ;; Using isort for clean-up commands (Make sure to pip install isort)
-(use-package py-isort
+(use-package py-isort-windows
     :hook (before-save . py-isort-before-save)
     :config
     (setq py-isort-options '("-l=79" "-m=3" "--tc" "--ca")))
@@ -697,6 +697,26 @@ Used to ensure session parameters are usable immediately."
 
 ;; ox-ipynb is an extension for exporting .org to .ipynb files.
 (require 'ox-ipynb)
+
+;; The export of .org to .ipynb with ox-ipynb won't work with regular python
+;; source blocks in org, and we use this because we override the base python
+;; with jupyter kernels, but this github issue:
+;; https://github.com/jkitchin/ox-ipynb/issues/13 provides a work around.
+;; It says it might delete output blocks, but it hasn't been an issue so far.
+(push '(python . (kernelspec . ((display_name . "Python 3")
+                                (language . "python")
+                                (name . "python3"))))
+      ox-ipynb-kernelspecs)
+
+(push '(python . (language_info . ((codemirror_mode . ((name . ipython)
+                                                      (version . 3)))
+                                   (file_extension . ".py")
+                                   (mimetype . "text/x-python")
+                                   (name . "python")
+                                   (nbconvert_exporter . "python")
+                                   (pygments_lexer . "ipython3")
+                                   (version . "3.5.2"))))
+      ox-ipynb-language-infos)
 
 ;; Even smoother scrolling over images
 (require 'iscroll)
