@@ -215,7 +215,8 @@
 ;;;; END - ORG-MODE SETUP
 
 ;; Font
-(set-face-font 'default "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+;; (set-face-font 'default "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+(set-face-font 'default "-unknown-DejaVuSansM Nerd Font-normal-normal-normal-mono-13-*-*-*-p-*-iso10646-1")
 
 ;; UTF-8 Encoding
 ;; https://rufflewind.com/2014-07-20/pasting-unicode-in-emacs-on-windows
