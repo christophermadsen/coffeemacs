@@ -31,8 +31,32 @@ to include at this destination could be your `.gitconfig` or `.ssh/`.
 You will see that Windows recognises the `~/` path as your newly set `HOME`
 system environment variable.
 
+### Modify the paths in `personal.el`
+Open the `personal.el` file in the base of coffeemacs directory. There you will
+see the following:
+
+``` emacs-lisp
+;; Set name and email.
+(setq user-full-name "Your Name Here"
+      user-mail-address "")
+
+;; Start dired in a specific folder
+(setq default-directory "Path to your home/working directory")
+```
+
+Edit the values to something that fits you. For reference I use the following:
+``` emacs-lisp
+(setq user-full-name "Christopher Buch Madsen"
+      user-mail-address "")
+      
+(setq default-directory "C:/Users/Chris")
+```
+
+You can also edit the values of the other variables you'll find there now, if
+you want to use their functionalities, but more is explained below.
+
 ### Install Python (3.11 and 3.12 have been tested and works)
-Make sure to add python to PATH when prompted during installation.
+Make sure to add python to **PATH** when prompted during installation.
 
 ### Python Packages required to run coffeemacs.
 (You'll also find these in a requirements.txt to install with `pip -r`)
@@ -66,7 +90,7 @@ Depending on where you install it, you may need to edit the following line insid
  '(markdown-command "C:/Pandoc/"))
 ```
 
-### Installing a new python kernel for use in org-moded
+### Installing a new python kernel for use in org-mode
 In any terminal:
 1. `mkvirtualenv "your kernel name"`
 2. `python -m ipykernel install --name="your kernel name"`
@@ -131,11 +155,19 @@ install an executable to perform this. Graphviz is mentioned in the org-roam
 manual, so we'll simply use that too
 (https://www.orgroam.com/manual.html#org_002droam_002dgraph). Download and
 install Graphviz at https://graphviz.org/download/#windows (don't forget to add
-it to PATH during installation), and in coffeemacs.el you can then change the
-path to the executable under the org-roam section.
+it to **PATH** during installation), and in the personal.el file you can then
+change the path to the executable.
 
 ``` emacs-lisp
+;; Path to Graphviz executable for org-roam visualizer
 (setq org-roam-graph-executable "C:/Graphviz/bin/dot.exe")
+```
+
+You can also choose which program to execute the visualization with, I recommend using your browser, for example Chrome.
+
+``` emacs-lisp
+;; Path to executable for viewing the org-roam visualization
+(setq org-roam-graph-viewer "")
 ```
 
 ### Org-roam bug (As of 8/8/2023)
@@ -205,6 +237,24 @@ def format_lines(lines: List[str], black_args=None) -> List[str]:
 
 (I've added a file in lisp/black-macchiato.py that includes this, but it would
 be best to not have a separate package from the one on pypi)
+
+### Using the Projectil package (also form helm)
+By default the `find` linux command won't work on Windows, so `projectile-grep`
+(C-c p s g) won't work and will likely give the error: `FIND: Parameter format
+not correct`.We'll ammend this by installing *cygwin* (a linux command libary
+for Windows) and adding it's execution directory (`/bin`) to our **PATH** in
+the windows system environment variable.
+
+Get Cygwin at https://www.cygwin.com/ or use chocolatey to install it:
+``` powershell
+choco get cygwin
+```
+
+Add the `/bin` directory of the Cygwin install directory to your **PATH**
+
+The links that helped resolve this issue:
+https://github.com/bbatsov/projectile/issues/827
+https://stackoverflow.com/questions/3918341/find-parameter-format-not-correct
 
 ### Running a Shell
 Running a terminal/shell in Emacs on Windows is really, really awkward. There
