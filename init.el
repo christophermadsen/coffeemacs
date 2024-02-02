@@ -6,6 +6,9 @@
 ;;; Code:
 ;; Setup package managers
 (require 'package)
+(setq personal-file (locate-user-emacs-file "personal.el"))
+(load personal-file)
+
 (setq package-archives
       '(("gnu elpa" . "https://elpa.gnu.org/packages/")
         ("melpa"    . "https://melpa.org/packages/"))

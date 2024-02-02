@@ -7,10 +7,6 @@
 ;;; Keymaps are at the bottom of the file.
 ;;; Code:
 
-;; Set name and email.
-(setq user-full-name "Christopher Buch Madsen"
-      user-mail-address "")
-
 ;; Automatically create missing parents when making a new file
 (defun my-create-non-existent-directory ()
       (let ((parent-directory (file-name-directory buffer-file-name)))
@@ -20,7 +16,6 @@
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
 ;;;; GENERAL
-(setq default-directory "C:/Users/Chris/") ;; Start dired in a specific folder
 (menu-bar-mode -1) ;; Disables the menu bar
 (scroll-bar-mode -1) ;; Disables the scrollbar
 (tool-bar-mode -1) ;; Disables the toolbar
@@ -730,16 +725,6 @@ Used to ensure session parameters are usable immediately."
   :init (setq markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
-
-;; Requires pandoc install
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(markdown-command "C:/Pandoc/pandoc.exe" t)
- '(org-agenda-files
-   '("d:/Projects/churned/llm_reach_out/poc_email_generation.org")))
 ;;;; END - MARKDOWN
 
 ;;;; ORG-ROAM
@@ -766,8 +751,6 @@ Used to ensure session parameters are usable immediately."
   (org-roam-db-autosync-mode 1)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
-(setq org-roam-graph-executable "C:/Graphviz/bin/dot.exe")
-(setq org-roam-graph-viewer "C:/Program Files/Google/Chrome/Application/chrome.exe")
 
 (add-to-list 'display-buffer-alist
              '("\\*org-roam\\*"
@@ -912,9 +895,3 @@ Used to ensure session parameters are usable immediately."
 ;;;; END - KEYMAPS
 
 ;;; coffeemacs.el ends here
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
