@@ -9,18 +9,15 @@
 ;;; Code:
 
 ;; Set name and email.
-(setq user-full-name "Christopher Buch Madsen"
+(setq user-full-name "Your Name Here"
       user-mail-address "")
 
 ;; Start dired in a specific folder
-(setq default-directory "C:/Users/Chris/")
-
-;; Set executable for the find command executable
-(setq find-program "C:/cygwin64/bin/find.exe")
+(setq default-directory "Path to your home/working directory")
 
 ;; Path to Graphviz executable for org-roam visualizer
-(setq org-roam-graph-executable "C:/Graphviz/bin/dot.exe")
+(setq org-roam-graph-executable "")
 
 ;; Path to executable for viewing the org-roam visualization
-(setq org-roam-graph-viewer "C:/Program Files/Google/Chrome/Application/chrome.exe")
+(setq org-roam-graph-viewer "")
 ;;; personal.el ends here
