@@ -20,4 +20,7 @@
 
 ;; Path to executable for viewing the org-roam visualization
 (setq org-roam-graph-viewer "")
+
+;; Set executable for the find command executable
+(setq find-program "")
 ;;; personal.el ends here

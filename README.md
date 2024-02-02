@@ -239,18 +239,34 @@ def format_lines(lines: List[str], black_args=None) -> List[str]:
 be best to not have a separate package from the one on pypi)
 
 ### Using the Projectil package (also form helm)
-By default the `find` linux command won't work on Windows, so `projectile-grep`
-(C-c p s g) won't work and will likely give the error: `FIND: Parameter format
-not correct`.We'll ammend this by installing *cygwin* (a linux command libary
-for Windows) and adding it's execution directory (`/bin`) to our **PATH** in
-the windows system environment variable.
+By default linux commands won't work on Windows, so e.g. `projectile-grep` (C-c
+p s g) won't work and will likely give the error: `FIND: Parameter format not
+correct`.We'll ammend this by installing *Cygwin* (a linux command libary for
+Windows) and adding its execution directory (`/bin`) to our **PATH** in the
+windows system environment variable.
 
 Get Cygwin at https://www.cygwin.com/ or use chocolatey to install it:
 ``` powershell
 choco get cygwin
 ```
 
-Add the `/bin` directory of the Cygwin install directory to your **PATH**
+Add the `/bin` directory of the *Cygwin* install directory to your **PATH**
+system environment variable.
+
+Finally we specifically need to tell Emacs which `find` command to use. Look in
+the `personal.el` file and edit the follow line you see there to the `find.exe`
+in `/bin` of your *Cygwin* install directory.
+
+``` powershell
+;; Set executable for the find command executable
+(setq find-program "")
+```
+
+For example if you installed cygwin in `C:/` it'll be something like:
+``` powershell
+;; Set executable for the find command executable
+(setq find-program "C:/cygwin64/bin/find.exe")
+```
 
 The links that helped resolve this issue:
 https://github.com/bbatsov/projectile/issues/827
