@@ -126,7 +126,7 @@
   :config
   (setq org-todo-keywords
         '((sequence "ONGOING(o!)" "TODO(t!)" "VERIFY(v@)" "REVIEW(r!)" "HOLD/WAIT(h@)" "WISHLIST(w!)"
-                    "|" "DONE(d)" "DELEGATED" "DROPPED"))
+                    "|" "DONE(d)" "DELEGATED" "DROPPED" "DECLINED(f@)"))
         org-time-stamp-custom-formats '("<%a %d %B>" . "<%d %b %a %H:%M>")
         org-export-allow-bind-keywords t
         org-src-preserve-indentation t
