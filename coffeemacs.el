@@ -25,6 +25,7 @@
 (global-display-line-numbers-mode +1) ;; Show line numbers in all modes
 (electric-pair-mode +1) ;; Pair parentheses
 (global-visual-line-mode t) ;; Wraps lines to fit a window
+(setq system-time-locale "C") ;; Make sure all Emacs functionalities is English
 
 ;; Scrolling
 (setq mouse-wheel-scroll-amount '(0.03)) ;; 3 lines at a time
