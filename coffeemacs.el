@@ -156,6 +156,9 @@
      (jupyter . t)
      )))
 
+;; Don't execute all code blocks when exporting
+(setq org-export-babel-evaluate nil)
+
 ;; (use-package org
 ;;   :demand t
 ;;   :custom (org-export-backends '(ascii html icalendar odt md org))
