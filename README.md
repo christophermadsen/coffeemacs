@@ -181,11 +181,10 @@ but don't forget to come back and check up on the bug to see if it's fixed.
 (bugfix.el will be copied to `/straight/versions/default.el` during load time).
 
 ### py-isort
-Within py-isort there's a function call to "diff", this doesn't exist to
-Windows and we need to instead use the Windows equivalent "FC". We need to
-change this is the py-isort.el package otherwise it likely won't work. It
-should be withing ".emacs.d/elpa/py-isort". Change the line containing "diff"
-to using "FC".
+Within py-isort there's a function call to "diff", this doesn't exist in
+Windows and we'll instead use the Windows equivalent "FC". We need to
+change this in the py-isort.el package, otherwise it likely won't work. It
+should exist within ".emacs.d/elpa/py-isort". Replace "diff" with "FC" in the line calling it.
 
 (I have provided a py-isort.el in lisp/ that fixes this, but it'd be best to
 not have a separate package from the one on melpa)
