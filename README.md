@@ -1,10 +1,9 @@
 # Coffeemacs - A Loosely Maintained Emacs Data Science Config for Windows.
 
-I used to work in a company where the Data Science team all used an internally
-maintained configuration of Emacs for UNIX based systems. However, these days I
-mostly spend my days on Windows, so this is my attempt at making my own Emacs
-configuration for Python and Data Science on Windows. Why Windows? You may
-ask. Well... Because I am too lazy to switch between systems.
+I used to work in an Emacs configuration for UNIX based systems. However, these
+days I mostly spend my days on Windows, so this is my attempt at making my own
+Emacs configuration for Python and Data Science on Windows. Why Windows?  You
+may ask. Well... Because I am too lazy to switch between systems.
 
 <p align="center">
     <img src="coffee-isometric-dashboard.png">
