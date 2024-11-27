@@ -1,14 +1,37 @@
-# Coffeemacs - A loosely maintained Emacs data science config for Windows.
-I worked at a company where the entire data science team used an Emacs
-configuration on Unix based systems. The config was maintained mainly by a few
-guys. This is my attempt at bringing the parts I liked the best over to a
-config working on Windows machines. Why? You may ask. Well, simply because if I
-am gaming or browsing on my Windows PC at home, I don't want to switch systems
-if I want to write down a note in org-roam or write some quick code.
+# Coffeemacs - A Loosely Maintained Emacs Data Science Config for Windows.
+
+I used to work in a company where the Data Science team all used an internally
+maintained configuration of Emacs for UNIX based systems. However, these days I
+mostly spend my days on Windows, so this is my attempt at making my own Emacs
+configuration for Python and Data Science on Windows. Why Windows? You may
+ask. Well... Because I am too lazy to switch between systems.
 
 <p align="center">
     <img src="coffee-isometric-dashboard.png">
 </p>
+
+**Table of Contents**
+
+- [Coffeemacs - A Loosely Maintained Emacs Data Science Config for Windows.](#coffeemacs---a-loosely-maintained-emacs-data-science-config-for-windows)
+    - [Make it work](#make-it-work)
+        - [Add a HOME to the windows system environment variables](#add-a-home-to-the-windows-system-environment-variables)
+        - [Modify the paths in `personal.el`](#modify-the-paths-in-personalel)
+        - [Install Python (3.11 and 3.12 have been tested and works)](#install-python-311-and-312-have-been-tested-and-works)
+        - [Python Packages required to run coffeemacs.](#python-packages-required-to-run-coffeemacs)
+        - [Unsharp/Blurry Text](#unsharpblurry-text)
+        - [Flycheck](#flycheck)
+        - [Markdown (and other files to convert from/to)](#markdown-and-other-files-to-convert-fromto)
+        - [Installing a new python kernel for use in org-mode](#installing-a-new-python-kernel-for-use-in-org-mode)
+        - [Use the (bash) workon command for activating a venv within PowerShell/Terminal:](#use-the-bash-workon-command-for-activating-a-venv-within-powershellterminal)
+        - [Using Org-roam (SQLITE)](#using-org-roam-sqlite)
+        - [The modeline symbols are broken](#the-modeline-symbols-are-broken)
+        - [Org-roam Graph](#org-roam-graph)
+        - [Org-roam bug (As of 8/8/2023)](#org-roam-bug-as-of-882023)
+        - [py-isort](#py-isort)
+        - [Python-black](#python-black)
+        - [Using the Projectil package (also form helm)](#using-the-projectil-package-also-form-helm)
+        - [Running a Shell](#running-a-shell)
+    - [Running update on annoying Windows things](#running-update-on-annoying-windows-things)
 
 ## Make it work
 ### Add a HOME to the windows system environment variables
@@ -71,6 +94,14 @@ ipykernel
 virtualenvwrapper
 virtualenvwrapper-win
 ```
+
+### Unsharp/Blurry Text
+If the text isn't as sharp as other editors (vscode, sublime) depending on your
+Windows version you may want to go to the Windows properties of Emacs. You can
+do this by following your shortcut to the `runemacs.exe` executable, right
+click it and left click properties. Navigate to the following: Properties ->
+Comaptibility -> Change high DPI settings, check the box/enable "Override high
+DPI scaling behaviour" and make "Scaling performed by" the "Application".
 
 ### Flycheck
 For the flycheck package to work you may need to go to "Manage App Execution
