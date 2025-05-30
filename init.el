@@ -6,7 +6,8 @@
 ;;; Code:
 ;; Setup package managers
 (require 'package)
-(setq personal-file (locate-user-emacs-file "personal.el"))
+(defvar personal-file (locate-user-emacs-file "personal.el")
+  "Path to the personal.el file in coffeemacs.")
 (load personal-file)
 
 (setq package-archives
