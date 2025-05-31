@@ -3,7 +3,7 @@
 I used to work in an Emacs configuration for UNIX based systems. However, these
 days I mostly spend my days on Windows, so this is my attempt at making my own
 Emacs configuration for Python and Data Science on Windows. Why Windows?  You
-may ask. Well... Because I am too lazy to switch between systems.
+may ask. Well... Because I am too lazy to maintain more than a single system.
 
 <p align="center">
     <img src="coffee-isometric-dashboard.png">
