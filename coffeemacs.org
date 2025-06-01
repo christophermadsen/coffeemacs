@@ -165,24 +165,27 @@ Adds some neat functionalities to the dired.
 (add-hook 'dired-after-readin-hook 'dired-omit-mode)
 #+end_src
 
-* Straight
+* DONE Straight
+CLOSED: [2025-05-31 Sat 06:06]
+
+I'm not sure if we really need ~straight~.
 
 #+begin_src emacs-lisp :results silent
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;; (defvar bootstrap-version)
+;; (let ((bootstrap-file
+;;        (expand-file-name
+;;         "straight/repos/straight.el/bootstrap.el"
+;;         (or (bound-and-true-p straight-base-dir)
+;;             user-emacs-directory)))
+;;       (bootstrap-version 7))
+;;   (unless (file-exists-p bootstrap-file)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+;;          'silent 'inhibit-cookies)
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;   (load bootstrap-file nil 'nomessage))
 #+end_src
 
 * Org-mode Config and Specifics
@@ -201,67 +204,129 @@ straight/versions/default.el
 ;; (copy-file ~/.emacs.d/bugfix.el (concat straight-lockfile-dir "default.el"))
 #+end_src
 
-** Org-mode Loading with Straight
-
+** Load and set up org-mode
 #+begin_src emacs-lisp :results silent
-(straight-use-package 'org)
 (use-package org
   :demand t
-  :custom (org-export-backends '(ascii html icalendar odt md org))
+  :custom
+  (org-export-backends '(ascii html icalendar odt md org))
   :hook (org-mode . turn-on-auto-fill)
   :config
+  ;; TODO keywords sequence with fast selection keys and logging
   (setq org-todo-keywords
         '((sequence "ONGOING(o!)" "TODO(t!)" "VERIFY(v@)" "REVIEW(r!)" "HOLD/WAIT(h@)" "WISHLIST(w!)"
-                    "|" "DONE(d)" "DELEGATED" "DROPPED" "DECLINED(f@)"))
-        org-time-stamp-custom-formats '("<%a %d %B>" . "<%d %b %a %H:%M>")
-        org-export-allow-bind-keywords t
+                    "|" "DONE(d)" "DELEGATED" "DROPPED" "DECLINED(f@)")))
+
+  (setq org-time-stamp-custom-formats
+        '("<%a %d %B>" . "<%d %b %a %H:%M>"))
+
+  (setq org-export-allow-bind-keywords t
         org-src-preserve-indentation t
         org-src-window-setup 'current-window
         org-log-done 'time
         org-log-into-drawer t
         org-confirm-babel-evaluate nil
-        ;; Use relative links for org-insert-link
         org-link-file-path-type 'relative
-        ;; Indent org file according to heading levels
         org-startup-indented t
-        ;; Allow for inline display of remote images
         org-display-remote-inline-images 'cache
-        ;; Display images when starting up an org file including them
         org-startup-with-inline-images t
-        ;; Allow Special Symbol Insertion Like Latex and HTML in Org
         org-pretty-entities t)
-        
 
-  ;; Refresh inline images after executing a block
-  (add-hook 'org-babel-after-execute-hook
-            (lambda () (org-display-inline-images nil t)))
+  ;; Refresh inline images after evaluating code blocks
+  (add-hook 'org-babel-after-execute-hook #'org-display-inline-images)
 
+  ;; Enable common Babel languages, including jupyter
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
      (sql . t)
      (python . t)
      (jupyter . t)
-     )))
+     (powershell . t))))
 
-;; Don't execute all code blocks when exporting
+;; Disable executing all code blocks on export globally
 (setq org-export-babel-evaluate nil)
 
-;; Modify options in org-insert-structure-template
+;; Customize org-structure-template-alist after org is loaded
 (with-eval-after-load 'org
-  ;; Add a new template
-  (add-to-list 'org-structure-template-alist
-               '("S" . "src"))
-  (add-to-list 'org-structure-template-alist
-               '("j" . "src emacs-lisp"))
+  ;; Add new templates
+  (add-to-list 'org-structure-template-alist '("S" . "src"))
+  (add-to-list 'org-structure-template-alist '("j" . "src emacs-lisp"))
 
-  ;; Modify an existing template (e.g., changing the src block for "s" to include "python" by default)
+  ;; Modify existing "s" template to default to python src block
   (setq org-structure-template-alist
-        (mapcar (lambda (element)
-                  (if (string-equal (car element) "s")
+        (mapcar (lambda (tpl)
+                  (if (string= (car tpl) "s")
                       '("s" . "src python")
-                    element))
+                    tpl))
                 org-structure-template-alist)))
+
+#+end_src
+
+** DROPPED Org-mode Loading with Straight
+CLOSED: [2025-05-31 Sat 05:52]
+
+Old and redundant way of loading org-mode, and a weird fix for using org-roam.
+
+#+begin_src emacs-lisp :results silent
+;; (straight-use-package 'org)
+;; (use-package org
+;;   :demand t
+;;   :custom (org-export-backends '(ascii html icalendar odt md org))
+;;   :hook (org-mode . turn-on-auto-fill)
+;;   :config
+;;   (setq org-todo-keywords
+;;         '((sequence "ONGOING(o!)" "TODO(t!)" "VERIFY(v@)" "REVIEW(r!)" "HOLD/WAIT(h@)" "WISHLIST(w!)"
+;;                     "|" "DONE(d)" "DELEGATED" "DROPPED" "DECLINED(f@)"))
+;;         org-time-stamp-custom-formats '("<%a %d %B>" . "<%d %b %a %H:%M>")
+;;         org-export-allow-bind-keywords t
+;;         org-src-preserve-indentation t
+;;         org-src-window-setup 'current-window
+;;         org-log-done 'time
+;;         org-log-into-drawer t
+;;         org-confirm-babel-evaluate nil
+;;         ;; Use relative links for org-insert-link
+;;         org-link-file-path-type 'relative
+;;         ;; Indent org file according to heading levels
+;;         org-startup-indented t
+;;         ;; Allow for inline display of remote images
+;;         org-display-remote-inline-images 'cache
+;;         ;; Display images when starting up an org file including them
+;;         org-startup-with-inline-images t
+;;         ;; Allow Special Symbol Insertion Like Latex and HTML in Org
+;;         org-pretty-entities t)
+        
+
+;;   ;; Refresh inline images after executing a block
+;;   (add-hook 'org-babel-after-execute-hook
+;;             (lambda () (org-display-inline-images nil t)))
+
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((emacs-lisp . t)
+;;      (sql . t)
+;;      (python . t)
+;;      (jupyter . t)
+;;      )))
+
+;; ;; Don't execute all code blocks when exporting
+;; (setq org-export-babel-evaluate nil)
+
+;; ;; Modify options in org-insert-structure-template
+;; (with-eval-after-load 'org
+;;   ;; Add a new template
+;;   (add-to-list 'org-structure-template-alist
+;;                '("S" . "src"))
+;;   (add-to-list 'org-structure-template-alist
+;;                '("j" . "src emacs-lisp"))
+
+;;   ;; Modify an existing template (e.g., changing the src block for "s" to include "python" by default)
+;;   (setq org-structure-template-alist
+;;         (mapcar (lambda (element)
+;;                   (if (string-equal (car element) "s")
+;;                       '("s" . "src python")
+;;                     element))
+;;                 org-structure-template-alist)))
 #+end_src
 
 ** Remove Confirmation for Running org-babel Code Blocks
@@ -657,17 +722,22 @@ Highlights the same instances of a symbol/word. Some words are filtered.
         highlight-thing-ignore-list '("False" "True", "return", "None", "if", "else", "self", "import", "from", "in", "def", "class")))
 #+end_src
 
-** Projectile
+** DONE Projectile
+CLOSED: [2025-05-31 Sat 05:56]
 
-Project management. Makes it super easy to find files in a project
+Project management. Makes it super easy to find files in a project.
+
+: Note
+Projectile does a lot, and it's awesome, but for a more lightweight version
+I'll use Emacs' built-in ~project~ package.
 
 #+begin_src emacs-lisp :results silent
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-mode +1)
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+;; (use-package projectile
+;;   :ensure t
+;;   :config
+;;   (projectile-mode +1)
+;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 #+end_src
 
 ** All-the-icons
@@ -785,9 +855,16 @@ Tracking search count/numbers, for example with default =(C-s)=
 
 ** Windows PowerShell in Emacs
 
+Major mode
 #+begin_src emacs-lisp :results silent
 (use-package powershell
-  :straight t)
+  :ensure t)
+#+end_src
+
+org-babel support, also added to the list in [[*Load and set up org-mode][Load and set up org-mode]]
+#+begin_src emacs-lisp :results silent
+(use-package ob-powershell
+ :ensure t)
 #+end_src
 
 ** Centered Window
@@ -985,16 +1062,21 @@ See https://sqrtminusone.xyz/posts/2021-05-01-org-python/
 
 #+begin_src emacs-lisp :results silent
 (use-package jupyter
-  :straight t
+  :ensure t
   :demand t
   :after (:all org python)
   :config
-  (setq org-babel-default-header-args:jupyter-python
-        '((:session . "py")
-          (:kernel . "python3")
-          (:async . "yes")))
-  (org-babel-jupyter-override-src-block "python") ;; Get normal python src blocks to use jupyter-python
-  )
+  ;; Load Jupyter support in Org Babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (jupyter . t)
+     (powershell . t))))
+
+  ;; Override 'python' src blocks to use Jupyter
+(org-babel-jupyter-override-src-block "python")
+
 
 ;; Refreshes kernels when switching envs
 (defun my/jupyter-refresh-kernelspecs ()
